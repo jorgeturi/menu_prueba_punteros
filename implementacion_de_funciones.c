@@ -1,5 +1,6 @@
 
 #include <stdio.h>
+#include <malloc.h>
 
 void borrar_pantalla()   //pongo 50 espacios para "borrar" la pantalla
 {
