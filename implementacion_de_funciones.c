@@ -85,7 +85,7 @@ void transponer_matriz(float **nombre_de_la_matriz, float**nombre_de_la_transpue
     void reserva_memoria_para_matriz(float **nombre_de_la_matriz, int numero_de_columnas ,int numero_de_filas)
 {
     nombre_de_la_matriz=(float**)malloc(numero_de_columnas*sizeof(float*)); //reservo a matriz "numero de columas" columnas en heap
-    for (int i=0 ; i<= numero_de_filas ; i++)                               //reservo a matriz "numero de filas" filas en heap
+    for (int i=0 ; i<= numero_de_columnas ; i++)                               //reservo a matriz "numero de filas" filas en heap
     {
     *(nombre_de_la_matriz+i)=(float*)malloc(numero_de_filas*sizeof(float));
     }
