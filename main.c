@@ -1,26 +1,83 @@
 #include <stdio.h>
-#include <stdint.h>
 #include <malloc.h>
+#include <string.h>
+#include <stdlib.h>
+
 void borrar_pantalla(void);
 void tecla_para_continuar(void);
+void imprimir_matriz(float **, int, int);
+void transponer_matriz(float **, float **, int);
+void llenar_matriz(float **, int, int);
+int comprobar_reserva_matriz(float **, int, int); //devuelve int por si algun espacio no puede ser agarrado
+void reserva_memoria_para_matriz(float **, int, int);
 
 
 int main()
 {
-    char *cadena_a_cargar;
-    cadena_a_cargar=NULL;
+    int N_COLUMNAS = 4;
+    int N_FILAS = 4;
+    int matriz_cuadrada = 0;
+    int ORDEN = 0;
+
+    float**matriz; //matriz es un puntero doble
+
+    int N_COLUMNAST = N_FILAS;
+    int N_FILAST = N_COLUMNAS;
+
+    float**matrizt; //matriz es un puntero doble
+
+    if (N_FILAS == N_COLUMNAS)
+    {
+        matriz_cuadrada=1;
+        ORDEN = N_FILAS;
+    }
+
+   
+
     
-    char opcion_elegida=1; //variable para las opciones del menu
+   
+
+ 
+    
+
+    
+
+    
+    /*fflush(stdin);
+    char ingresado;
+    int a;
+       scanf ("%c", &ingresado);
+       int isdigit (int);
+       a = isdigit (ingresado) ;
+       printf ("%d" , a);
+       */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    char opcion_elegida = '1'; //variable para las opciones del menu
     char confirmacion;       //variable para almacenar la confirmacion de salida
 
     while (opcion_elegida!=0)             //mientras la opcion elegida sea distinto de 5 imprime el menu, arranca en 0 por eso al menos 1 vez se muestra
 {
-    printf("\t Arme su menu\n");      //menu
-    printf("1~ Agregar opcion\n");
-    printf("2~ Quitar opcion\n");
-    printf("3~ Ir al menu\n");
-    printf("0~ Salir\n");
-
+    printf("Menu de operaciones\n");      //menu
+    printf("1.Ingresar matriz\n");
+    printf("2.Imprimir matriz\n");
+    printf("3.Transponer matriz\n");
+    printf("4.Calcular matriz adjunta\n");
+    printf("5.Calcular determinante\n");
+    printf("6.Calcular inversa, si existe\n");
+    printf("0.Salir\n");
     printf("\nElija su opcion: \n\t\t");        //se elije una opcion y se guarda en opcion_elegida
     scanf("%c",&opcion_elegida);
 
@@ -29,22 +86,62 @@ int main()
 
     case '1':
         borrar_pantalla();                
-        printf("ingrese la frase que quiere agregar\n");
+        //reserva de memoria manual hasta que la funcion funcione
+         //reserva_memoria_para_matriz(matriz,N_COLUMNAS,N_FILAS);
+
+         matriz=(float**)malloc(N_COLUMNAS*sizeof(float*)); //reservo a matriz "numero de columas" columnas en heap
+         for (int i=0 ; i<= N_FILAS ; i++)                               //reservo a matriz "numero de filas" filas en heap
+         {
+         *(matriz+i)=(float*)malloc(N_FILAS*sizeof(float));
+         }
+
+        comprobar_reserva_matriz(matriz, N_COLUMNAS, N_FILAS);
+        llenar_matriz(matriz,N_COLUMNAS,N_FILAS);
         tecla_para_continuar();         //se espera una tecla para continuar
         borrar_pantalla();                //se borra la pantalla
         break;                          
 
     case '2':  
+        imprimir_matriz(matriz,N_COLUMNAS,N_FILAS);
         tecla_para_continuar();
         borrar_pantalla();
         break;
 
     case '3': 
+        //reserva de memoria manual para la transpuesta
+        matrizt=(float**)malloc(N_COLUMNAST*sizeof(float*)); //reservo a matriz "numero de columas" columnas en heap
+        for (int i=0 ; i<= N_FILAST ; i++)                               //reservo a matriz "numero de filas" filas en heap
+        {
+        *(matrizt+i)=(float*)malloc(N_FILAST*sizeof(float));
+        }
+        comprobar_reserva_matriz(matrizt, N_COLUMNAST, N_FILAST);
+
+    
+
+         transponer_matriz(matriz, matrizt, ORDEN);
+         printf ("\n \n");
+         imprimir_matriz(matrizt, N_FILAS, N_COLUMNAS);
+         printf ("\n");
         tecla_para_continuar();
         borrar_pantalla();
         break;
 
     case '4': 
+        tecla_para_continuar();
+        borrar_pantalla();
+        break;
+    
+    case '5':
+        tecla_para_continuar();
+        borrar_pantalla();
+        break;
+
+    case '6':
+         if (matriz_cuadrada == 0)
+       {
+        printf("no puede calcularse la inversa \n");
+        printf("no puede calcularse su determinante \n");
+       }
         tecla_para_continuar();
         borrar_pantalla();
         break;
